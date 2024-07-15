@@ -22,15 +22,20 @@ class FamilyStructure:
     def add_member(self, member):
         # fill this method and update the return
         new_member={
-            "id":self._generateId(),
+            "id": None,
             "last_name":self.last_name,
             "first_name":member["first_name"],
             "age":member["age"],
             "lucky_numbers":member["lucky_numbers"]
         }
 
+        if "id" in member:
+            new_member["id"] = member["id"]
+        else: 
+            new_member["id"] = self._generateId()
+
         self._members.append(new_member)
-        return (member)
+        return (new_member)
         
     def delete_member(self, id):
         for family_member in  self._members:
@@ -39,12 +44,35 @@ class FamilyStructure:
                 return {"done": True}
         
         return {"done": False}
-
+    
     def get_member(self, id):
         for member in self._members:
-            if member["id"] == id:
-                return member
-        return None
+            if member['id'] == id:
+                memberToReturn = {
+                    "first_name": member["first_name"],
+                    "id": member["id"],
+                    "age": member["age"],
+                    "lucky_numbers": member["lucky_numbers"]
+                }
+                return memberToReturn
+        return None  # Return None if the member is not found
+
+    # def get_member(self, id):
+    #     for member in self._members:
+    #         if member["id"] == id:
+    #             name = member["first_name"]
+    #             age = member["age"]
+    #             lucky_numbers = member["lucky_numbers"]
+    #             memberToReturn = {
+    #                 self._member[ name, age, id, lucky_numbers ]
+    #                 # "name" : member["first_name"],
+    #                 # "id" : member["id"],
+    #                 # "age" : member["age"],
+    #                 # "lucky_numbers" : member["lucky_numbers"]
+                    
+    #             }
+    #             return memberToReturn
+    #     return None
 
 
     # this method is done, it returns a list with all the family members
